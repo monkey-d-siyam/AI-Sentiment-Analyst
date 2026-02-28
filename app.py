@@ -7,10 +7,21 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from text_pipeline import preprocess_text, load_artifact
 
-app = Flask(__name__)
+# Flexible pathing for cloud deployment
+base_dir = os.path.dirname(os.path.abspath(__file__))
 
-# Paths to artifacts
-MODELS_DIR = 'models'
+# 1. Handle Templates: Use 'templates/' if it exists, else use root '.'
+template_dir = os.path.join(base_dir, 'templates')
+if not os.path.exists(template_dir):
+    template_dir = base_dir
+
+app = Flask(__name__, template_folder=template_dir)
+
+# 2. Handle Models: Use 'models/' if it exists, else use root '.'
+MODELS_DIR = os.path.join(base_dir, 'models')
+if not os.path.exists(MODELS_DIR):
+    MODELS_DIR = base_dir
+
 BEST_ML_PATH = os.path.join(MODELS_DIR, 'best_ml_model.pkl')
 BEST_NN_PATH = os.path.join(MODELS_DIR, 'best_nn_model.h5')
 TOKENIZER_PATH = os.path.join(MODELS_DIR, 'tokenizer.pkl')
@@ -76,24 +87,28 @@ def predict():
     confidence = 0.0
     method = "None"
 
-    if model_nn and tokenizer and label_encoder:
-        seq = tokenizer.texts_to_sequences([cleaned_text])
-        padded = pad_sequences(seq, maxlen=100, padding='post', truncating='post')
-        probs = model_nn.predict(padded)[0]
-        idx = np.argmax(probs)
-        prediction = label_encoder.inverse_transform([idx])[0]
-        confidence = float(probs[idx])
-        method = "Neural Network"
-    elif model_ml and tfidf:
-        features = tfidf.transform([cleaned_text])
-        prediction = model_ml.predict(features)[0]
-        method = "Machine Learning (TF-IDF)"
-        # Some ML models don't have predict_proba
-        try:
-            probs = model_ml.predict_proba(features)[0]
-            confidence = float(np.max(probs))
-        except:
-            confidence = 1.0
+    try:
+        if model_nn and tokenizer and label_encoder:
+            seq = tokenizer.texts_to_sequences([cleaned_text])
+            # FIXED: maxlen must match the training script (50)
+            padded = pad_sequences(seq, maxlen=50, padding='post', truncating='post')
+            probs = model_nn.predict(padded)[0]
+            idx = np.argmax(probs)
+            prediction = label_encoder.inverse_transform([idx])[0]
+            confidence = float(probs[idx])
+            method = "Neural Network"
+        elif model_ml and tfidf:
+            features = tfidf.transform([cleaned_text])
+            prediction = model_ml.predict(features)[0]
+            method = "Machine Learning (TF-IDF)"
+            try:
+                probs = model_ml.predict_proba(features)[0]
+                confidence = float(np.max(probs))
+            except:
+                confidence = 1.0
+    except Exception as e:
+        print(f"Prediction Error: {e}")
+        return jsonify({'error': str(e)}), 500
 
     return jsonify({
         'original_text': text,
@@ -106,4 +121,6 @@ def predict():
 if __name__ == '__main__':
     # Ensure models dir exists for first run
     os.makedirs(MODELS_DIR, exist_ok=True)
-    app.run(debug=True, port=5000)
+    # Use 7860 for Hugging Face or 5000 as fallback
+    port = int(os.environ.get("PORT", 7860))
+    app.run(host='0.0.0.0', port=port)

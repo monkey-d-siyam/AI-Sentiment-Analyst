@@ -1,46 +1,60 @@
-# 🧠 AI-Powered Multi-Class Text Classifier
-### *Production-Ready NLP Pipeline & Deployment*
+# 🧠 AI Context Analyst: Multi-Class Text Classification
+### *A Production-Ready Hybrid NLP Pipeline & Live Deployment*
 
-![Python](https://img.shields.io/badge/python-3.8+-blue.svg)
-![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange.svg)
+[![Live Demo](https://img.shields.io/badge/demo-HuggingFace-yellow.svg)](YOUR_HUGGINGFACE_SPACE_URL_HERE)
+![Python](https://img.shields.io/badge/python-3.11-blue.svg)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-2.15-orange.svg)
 ![Flask](https://img.shields.io/badge/Flask-Web%20App-lightgrey.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
-A sophisticated, end-to-end Natural Language Processing (NLP) system designed to categorize unstructured text into meaningful classes. This project bridges the gap between raw data and actionable intelligence using a combination of classical Machine Learning and state-of-the-art Deep Learning.
+This repository contains a comprehensive, end-to-end NLP system designed to categorize unstructured text into 9+ semantic classes (Business, Science, Sports, etc.). Developed as a senior laboratory project for **CSE440: Natural Language Processing II**, this system bridges the gap between raw data and actionable intelligence using a combination of classical Machine Learning and state-of-the-art Recurrent Neural Networks.
 
 ---
 
 ## 🚀 Key Features
 
-- **Multi-Model Support**: Compare results between **Logistic Regression (TF-IDF)** and **Deep Learning (LSTM)** architectures.
-- **Advanced Preprocessing**: Implements POS-aware lemmatization, tokenization, and stopword removal via a modular vectorized pipeline.
-- **Smart Embeddings**: Supports **Word2Vec Skip-gram** and **GloVe** representations for deep contextual understanding.
-- **Premium UI**: A modern, responsive web interface built with **Glassmorphism** and high-end typography for instant narrative analysis.
-- **Scalable Architecture**: Designed to handle datasets with millions of rows while maintaining high performance.
+- **Hybrid Inference Engine**: An intelligent backend that prefers **Deep Learning (LSTM)** for high-confidence predictions but fallbacks to **Logistic Regression (TF-IDF)** for efficiency.
+- **Advanced Preprocessing Stack**: Implements a modular, vectorized pipeline featuring **POS-aware lemmatization**, tokenization, and noise reduction.
+- **Diverse Word Representations**: Comparison study across **BoW, TF-IDF, GloVe embeddings,** and locally trained **Word2Vec Skip-gram** models.
+- **Stratified Data Balancing**: Engineered to handle class imbalance in a 1.45M+ row dataset through sophisticated sampling techniques.
+- **Premium Web UI**: A modern, responsive interface built with **Glassmorphism** and instant narrative analysis capabilities.
+- **Cloud-Ready Deployment**: Fully Dockerized and live on Hugging Face Spaces.
+
+---
+
+## 🔬 Experimental Results
+
+We conducted **22+ distinct experiments** to identify the most robust architecture.
+
+| Model Architecture | Word Representation | Accuracy | Macro F1-Score |
+| :--- | :--- | :--- | :--- |
+| **LSTM (Final)** | **Balanced Word2Vec** | **72.4%** | **0.71** |
+| Logistic Regression | TF-IDF | 64.2% | 0.62 |
+| SimpleRNN | GloVe | 58.5% | 0.54 |
+| Naive Bayes | Bag-of-Words | 61.8% | 0.59 |
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Core**: Python 3.8+
-- **NLP**: NLTK, Gensim
-- **Machine Learning**: Scikit-Learn (TF-IDF, Logistic Regression, Random Forest)
-- **Deep Learning**: TensorFlow/Keras (LSTM, GRU, Word2Vec)
-- **Deployment**: Flask (Backend), Modern Vanilla CSS (Premium Frontend)
+- **Core Engine**: Python 3.11
+- **NLP Libraries**: NLTK (WordNet, POS Tagging), Gensim
+- **ML Frameworks**: Scikit-Learn, TensorFlow/Keras
+- **Deployment**: Flask (Inference API), Docker, Hugging Face Spaces
 
 ---
 
 ## 📂 Project Structure
 
 ```bash
-├── Datasets/           # Training & Test CSV files (Standard: 'QA Text' & 'Class')
-├── models/             # Exported model "brains" (pkl, h5, tokenizer)
-├── templates/          # HTML templates for the Flask web application
-├── text_pipeline.py    # The core NLP engine (preprocessing & utilities)
-├── train_script.py     # High-speed training script with Stratified Sampling
-├── train.ipynb         # Interactive research & experimentation notebook
-├── app.py              # Flask deployment server
-└── requirements.txt    # Project dependencies
+├── models/             # Exported "Brains" (h5 models, pkl vectorizers)
+├── templates/          # Flask HTML templates (Premium Glassmorphism UI)
+├── text_pipeline.py    # The core NLP engine (Preprocessing logic)
+├── train_script.py     # High-speed Stratified Training script
+├── app.py              # Cloud-ready Flask Inference Server
+├── Dockerfile          # Container configuration for deployment
+├── requirements.txt    # Project dependencies
+└── paper.tex           # Full IEEE Research Paper (LaTeX)
 ```
 
 ---
@@ -48,36 +62,20 @@ A sophisticated, end-to-end Natural Language Processing (NLP) system designed to
 ## 🏁 Quick Start
 
 ### 1. Installation
-Clone the repository and install the necessary libraries:
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Training the "Brain"
-You can train the models either interactively via the notebook or quickly via the terminal:
+### 2. High-Speed Training
+To train the balanced models locally:
 ```bash
-# High-speed stratified training
 python train_script.py
 ```
 
-### 3. Launching the Dashboard
-Once the training is complete and artifacts are in the `models/` folder:
+### 3. Launch the App
 ```bash
 python app.py
 ```
-Visit `http://127.0.0.1:5000` to start analyzing text!
+Visit `http://localhost:5000` to interact with the local AI analyst.
 
 ---
-
-## 🧪 The "Chaotic Text" Test
-The system is built to handle noise. Try pasting a "chaotic" sample like this to see how the model ignores noise and finds the core intent:
-
-> *"MARKET ALERT! 📉 Stocks are tumbling as investors react... Should I diversify into gold?? #WallStreet #Investing"*
-
----
-
-## 📄 License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
----
-*Built with ❤️ for High-Performance NLP.*
