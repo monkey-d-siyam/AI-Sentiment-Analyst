@@ -1,4 +1,4 @@
-# 🧠 AI Context Analyst: Multi-Class Text Classification
+# AI Context Analyst: Multi-Class Text Classification
 ### *A Production-Ready Hybrid NLP Pipeline & Live Deployment*
 
 [![Live Demo](https://img.shields.io/badge/demo-HuggingFace-yellow.svg)](YOUR_HUGGINGFACE_SPACE_URL_HERE)
@@ -11,7 +11,7 @@ This repository contains a comprehensive, end-to-end NLP system designed to cate
 
 ---
 
-## 🚀 Key Features
+## Key Features
 
 - **Hybrid Inference Engine**: An intelligent backend that prefers **Deep Learning (LSTM)** for high-confidence predictions but fallbacks to **Logistic Regression (TF-IDF)** for efficiency.
 - **Advanced Preprocessing Stack**: Implements a modular, vectorized pipeline featuring **POS-aware lemmatization**, tokenization, and noise reduction.
@@ -22,7 +22,7 @@ This repository contains a comprehensive, end-to-end NLP system designed to cate
 
 ---
 
-## 🔬 Experimental Results
+## Experimental Results
 
 We conducted **22+ distinct experiments** to identify the most robust architecture.
 
@@ -35,7 +35,7 @@ We conducted **22+ distinct experiments** to identify the most robust architectu
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Core Engine**: Python 3.11
 - **NLP Libraries**: NLTK (WordNet, POS Tagging), Gensim
@@ -44,7 +44,7 @@ We conducted **22+ distinct experiments** to identify the most robust architectu
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```bash
 ├── models/             # Exported "Brains" (h5 models, pkl vectorizers)
@@ -59,7 +59,7 @@ We conducted **22+ distinct experiments** to identify the most robust architectu
 
 ---
 
-## 🏁 Quick Start
+## Quick Start
 
 ### 1. Installation
 ```bash
